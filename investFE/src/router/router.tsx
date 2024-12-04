@@ -8,6 +8,7 @@ import CreateAccountNotification from "../pages/auth/CreateAccountNotification";
 import ForgetPasswordNotification from "../pages/auth/ForgetPasswordNotification";
 import HomeScreen from "../pages/home/HomeScreen";
 import PrivateRoute from "./privateRoute";
+import ErrorScreen from "../static/error/ErrorScreen";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,11 @@ export const router = createBrowserRouter([
         <HomeScreen />
       </PrivateRoute>
     ),
+  },
+  {
+    index: true,
+    path: "*",
+    element: <ErrorScreen />,
   },
   {
     path: "/auth",

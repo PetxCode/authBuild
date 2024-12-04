@@ -32,6 +32,7 @@ const LoginScreen = () => {
           //   setUserID(getID?.id);
           localStorage.setItem("userAuthLogin", JSON.stringify(getID?.id));
           navigate("/");
+          toast.success("Login Successful");
         } else {
           toast.error(res.response?.data?.message);
         }
