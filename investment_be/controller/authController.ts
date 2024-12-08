@@ -9,9 +9,9 @@ import { sendCreateAccountEmail } from "../utils/email";
 env.config();
 
 // AUTH
-export const createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: any, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { firstName, email, password } = req.body;
 
     const salt = await bcrypt.genSalt(10);
     const hashed = await bcrypt.hash(password, salt);
@@ -19,11 +19,18 @@ export const createUser = async (req: Request, res: Response) => {
     const acc = crypto.randomBytes(4).toString("hex");
     const verifyToken = crypto.randomBytes(2).toString("hex");
 
+    const { secure_url, public_id }: any = await cloudinary.uploader.upload(
+      req.file.path
+    );
+
     const user = await authModel.create({
       email,
+      firstName,
       password: hashed,
       accNumber: acc,
       verifyToken,
+      avatar: secure_url,
+      avatarID: public_id,
     });
 
     sendCreateAccountEmail(user).then(() => {

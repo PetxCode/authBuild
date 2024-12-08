@@ -4,7 +4,7 @@ env.config();
 
 export const dbConfig = async () => {
   try {
-    await connect(process.env.MONGO_URL as string).then(() => {
+    await connect(process.env.MONGO_URL_LIVE as string).then(() => {
       console.clear();
       console.log("db connected ❤️❤️🚀🚀");
     });

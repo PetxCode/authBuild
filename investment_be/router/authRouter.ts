@@ -14,7 +14,7 @@ import { upload } from "../utils/multer";
 const router: any = Router();
 
 // AUTH
-router.route("/register-account").post(createUser);
+router.route("/register-account").post(upload, createUser);
 router.route("/login-account").post(logInUser);
 router.route("/forget-account-password").post(forgetUserPassword);
 router.route("/reset-account-password").patch(changeUserPassword);

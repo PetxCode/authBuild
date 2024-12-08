@@ -3,6 +3,7 @@ import { IoIosCart } from "react-icons/io";
 import { GlobalContext } from "../global/globalProvider";
 import { readUser } from "../api/authAPI";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { userID }: any = useContext(GlobalContext);
@@ -32,12 +33,12 @@ const Header = () => {
         <div className="flex-1" />
         <div className="flex items-center gap-4">
           <div>₦{cost.toLocaleString()}</div>
-          <div className="relative">
+          <Link to="/cart" className="relative">
             <IoIosCart className="text-[30px]" />
             <div className="bg-red-600 text-white w-4 h-4 rounded-full absolute top-0 right-0 flex items-center justify-center text-[10px]">
               {data.length}
             </div>
-          </div>
+          </Link>
           <button
             className="bg-black text-white px-10 py-3 rounded-md "
             onClick={() => {

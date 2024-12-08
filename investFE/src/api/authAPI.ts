@@ -1,12 +1,19 @@
 import axios from "axios";
 
-const URL = "http://localhost:4466/api/v1";
+const URL = "http://localhost:22330/api";
 
 export const createAccount = async (data: any) => {
   try {
-    return await axios.post(`${URL}/register`, data).then((res: any) => {
-      return res.data;
-    });
+    const config: any = {
+      headers: {
+        "content-type": "multipart-formdata",
+      },
+    };
+    return await axios
+      .post(`${URL}/register-account`, data, config)
+      .then((res: any) => {
+        return res.data;
+      });
   } catch (error) {
     return error;
   }

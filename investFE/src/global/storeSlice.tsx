@@ -12,6 +12,9 @@ const storeSlice = createSlice({
     addProductToStore: (state, { payload }) => {
       state.products = payload;
     },
+    emptyCart: (state) => {
+      state.cart = [];
+    },
     addProductToCart: (state, { payload }: any) => {
       const check = state.cart.findIndex((el: any) => el?.id === payload?.id);
 
@@ -23,12 +26,18 @@ const storeSlice = createSlice({
         const product: any = { ...payload, qty: 1 };
         state.cart.push(product);
       }
-
-      //   state.cart = [];
+    },
+    removeProductFromCart: (state, { payload }) => {
+      state.cart = state.cart.filter((el: any) => el.id !== payload.id);
     },
   },
 });
 
-export const { addProductToStore, addProductToCart } = storeSlice.actions;
+export const {
+  addProductToStore,
+  emptyCart,
+  addProductToCart,
+  removeProductFromCart,
+} = storeSlice.actions;
 
 export default storeSlice.reducer;

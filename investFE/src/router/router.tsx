@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import Layout from "../layout/Layout";
 import RegisterScreen from "../pages/auth/RegisterScreen";
 import LoginScreen from "../pages/auth/LoginScreen";
@@ -9,16 +9,49 @@ import ForgetPasswordNotification from "../pages/auth/ForgetPasswordNotification
 import HomeScreen from "../pages/home/HomeScreen";
 import PrivateRoute from "./privateRoute";
 import ErrorScreen from "../static/error/ErrorScreen";
+import ProductDetailPage from "../pages/home/ProductDetailPage";
+import CartPage from "../pages/home/CartPage";
+import Header from "../static/Header";
+import SuccessNotification from "../pages/auth/SuccessNotification";
+
+const MyLayout = () => {
+  return (
+    <div>
+      <Header />
+      <Outlet />
+    </div>
+  );
+};
 
 export const router = createBrowserRouter([
   {
-    index: true,
     path: "/",
     element: (
       <PrivateRoute>
-        <HomeScreen />
+        <MyLayout />
       </PrivateRoute>
     ),
+    children: [
+      {
+        index: true,
+        element: <HomeScreen />,
+      },
+      {
+        index: true,
+        path: "product/:id",
+        element: <ProductDetailPage />,
+      },
+      {
+        index: true,
+        path: "/cart",
+        element: <CartPage />,
+      },
+      {
+        index: true,
+        path: "/success",
+        element: <SuccessNotification />,
+      },
+    ],
   },
   {
     index: true,

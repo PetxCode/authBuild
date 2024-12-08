@@ -5,15 +5,26 @@ import toast, { Toaster } from "react-hot-toast";
 
 const RegisterScreen = () => {
   const navigate = useNavigate();
+  const [image, setImage] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const [loading, setLoading] = useState<boolean>(false);
+  const handleImage = (e: any) => {
+    setImage(e.target.files[0]);
+  };
 
   const handleSubmit = () => {
     setLoading(true);
-    createAccount({ name, email, password }).then((res) => {
+    const formData = new FormData();
+
+    formData.append("firstName", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("avatar", image);
+
+    createAccount(formData).then((res) => {
       if (res.status === 201) {
         navigate("/auth/create-account-notification");
       } else {
@@ -29,6 +40,22 @@ const RegisterScreen = () => {
       <div className="w-[500px] border p-4">
         <p className="font-semibold uppercase text-[20px]">Register</p>
 
+        <div className="flex flex-col my-2">
+          <label
+            className=" px-8 py-3 bg-black text-white cursor-pointer font-semibold text-[12px]"
+            htmlFor="pix"
+          >
+            Upload Image
+          </label>
+
+          <input
+            id="pix"
+            type="file"
+            className="hidden h-[45px] border pl-2 outline-none "
+            placeholder="Enter Name"
+            onChange={handleImage}
+          />
+        </div>
         <div className="flex flex-col my-2">
           <label className="font-semibold text-[12px]">name</label>
 
